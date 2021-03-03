@@ -139,7 +139,8 @@ PS_IN vs_main(VS_IN input)
 	output.worldNormal = mul(input.normal * NormalScale, (float3x3)WorldMatrix);
 
 	float3 worldPos = mul(float4(input.position, 1), WorldMatrix).xyz;
-	output.halfVector = normalize(normalize(CameraPosition - worldPos) + normalize(LightDirection));
+	//output.halfVector = normalize(normalize(CameraPosition - worldPos) + normalize(LightDirection));
+	output.halfVector = normalize(LightDirection);
 
 	return output;
 }
