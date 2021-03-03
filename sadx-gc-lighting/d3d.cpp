@@ -980,7 +980,7 @@ namespace local
 		{
 			auto& sl = CurrentStageLights[0];
 			
-			param::LightDiffuse = D3DXCOLOR(sl.diffuse[0], sl.diffuse[1], sl.diffuse[2], 1.0f);
+			param::LightDiffuse = D3DXCOLOR(sl.diffuse[0] * sl.multiplier, sl.diffuse[1] * sl.multiplier, sl.diffuse[2] * sl.multiplier, 1.0f);
 			param::LightSpecular = D3DXCOLOR(sl.specular, sl.specular, sl.specular, 0.0f);
 			param::LightAmbient = D3DXCOLOR(sl.ambient[0], sl.ambient[1], sl.ambient[2], 0.0f);
 		}
