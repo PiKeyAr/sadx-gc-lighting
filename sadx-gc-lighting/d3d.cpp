@@ -52,7 +52,7 @@ namespace param
 	ShaderParameter<D3DXCOLOR>   LightDiffuse(30, {}, IShaderParameter::Type::pixel);
 	ShaderParameter<D3DXCOLOR>   LightSpecular(31, {}, IShaderParameter::Type::pixel);
 	ShaderParameter<D3DXCOLOR>   LightAmbient(32, {}, IShaderParameter::Type::pixel);
-
+	
 	IShaderParameter* const parameters[] = {
 		&WorldMatrix,
 		&wvMatrix,
@@ -979,16 +979,16 @@ namespace local
 		if (type == 0)
 		{
 			auto& sl = CurrentStageLights[0];
-			
 			param::LightDiffuse = D3DXCOLOR(sl.diffuse[0] * sl.multiplier, sl.diffuse[1] * sl.multiplier, sl.diffuse[2] * sl.multiplier, 1.0f);
 			param::LightSpecular = D3DXCOLOR(sl.specular, sl.specular, sl.specular, 0.0f);
 			param::LightAmbient = D3DXCOLOR(sl.ambient[0], sl.ambient[1], sl.ambient[2], 0.0f);
 		}
 		else
 		{
-			param::LightDiffuse = light.Diffuse;
-			param::LightSpecular = light.Specular;
-			param::LightAmbient = light.Ambient;
+			if ((LSPalette.Flags & 2) != 0) param::LightDirection = -D3DXVECTOR3(LSPalette.Direction.x, LSPalette.Direction.y, LSPalette.Direction.z);
+			param::LightDiffuse = D3DXCOLOR(min(1.0f, LSPalette.CO_R), min(1.0f, LSPalette.CO_G), min(1.0f, LSPalette.CO_B), 1.0f);
+			param::LightSpecular = D3DXCOLOR(min(1.0f, LSPalette.SP_R), min(1.0f, LSPalette.SP_G), min(1.0f, LSPalette.SP_B), 1.0f);
+			param::LightAmbient = D3DXCOLOR(LSPalette.AMB_R, LSPalette.AMB_G, LSPalette.AMB_B, 1.0f);
 		}
 	}
 
